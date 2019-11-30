@@ -11,7 +11,7 @@ void display(int arr[], int len) {
 void BubbleSort(int arr[], int len) {
 	int i, tmp;
 	bool swap;
-	// to be able to access the next element of the array, (specialy the last element)
+	// to be able to access the next element of the array, (the last element)
 	len--;
 	// in bubble sort we have to loop at least once on a sorted array,
 	// so using do while is recomended for this case
@@ -51,7 +51,7 @@ void SelectionSort(int arr[], int len) {
 void InsertionSort(int arr[], int len) {
 	int i, j, tmp;
 
-	// start with i = 1 to be able to access the previous element (specialy at position 0)
+	// start with i = 1 to be able to access the previous element (at position 0)
 	// this implementation shifts all elements to the right to provide an empty cell at the position
 	// needed to perform the swap, and in the outer loop it perform the swap,
 	// it seems to be faster, as it perform only one assign operation in the inner loop instead of the

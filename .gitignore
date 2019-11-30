@@ -240,3 +240,10 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Custom
+.gitIgnore
+.gitattributes
+*.sln
+*.vcxproj
+*.vcxproj.filters
