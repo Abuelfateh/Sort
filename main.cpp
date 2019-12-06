@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
 
+int arr_size;
+
 // display array content
-void display(int arr[], int len) {
-	for (int i = 0; i < len; i++)
+void display(int arr[]) {
+	for (int i = 0; i < arr_size; i++)
 		cout << (i == 0 ? "" : " ") << arr[i];
 	cout << endl;
 }
@@ -15,6 +17,7 @@ void BubbleSort(int arr[], int len) {
 	len--;
 	// in bubble sort we have to loop at least once on a sorted array,
 	// so using do while is recomended for this case
+	cout << "Bubble Sort steps: " << endl;
 	do {
 		swap = false;
 		for (i = 0; i < len; i++) {
@@ -25,6 +28,7 @@ void BubbleSort(int arr[], int len) {
 				arr[i + 1] = tmp;
 			}
 		}
+		display(arr);
 	} while (swap);
 }
 
@@ -32,7 +36,7 @@ void SelectionSort(int arr[], int len) {
 	int i, j, tmp,
 		// used to hold the minimum value index, to perform one swap at a time
 		index;
-
+	cout << "Selection Sort steps: " << endl;
 	for (i = 0; i < len; i++) {
 		index = i;
 		for (j = i + 1; j < len; j++) {
@@ -45,12 +49,13 @@ void SelectionSort(int arr[], int len) {
 			arr[i] = arr[index];
 			arr[index] = tmp;
 		}
+		display(arr);
 	}
 }
 
 void InsertionSort(int arr[], int len) {
 	int i, j, tmp;
-
+	cout << "Insertion Sort steps: " << endl;
 	// start with i = 1 to be able to access the previous element (at position 0)
 	// this implementation shifts all elements to the right to provide an empty cell at the position
 	// needed to perform the swap, and in the outer loop it perform the swap,
@@ -63,6 +68,7 @@ void InsertionSort(int arr[], int len) {
 			arr[j + 1] = arr[j];
 		}
 		arr[j + 1] = tmp;
+		display(arr);
 	}
 }
 
@@ -91,8 +97,10 @@ void _msMerge(int arr[], int l, int m, int r) {
 	while (i < lLen && j < rLen) {
 		if (L[i] < R[j])
 			arr[k++] = L[i++];
-		else
+		else {
 			arr[k++] = R[j++];
+			// split_inversion += lLen - i;
+		}
 	}
 
 	// check if there is a remaining elements in the left array
@@ -119,6 +127,7 @@ void _msDivide(int arr[], int l, int r) {
 		_msDivide(arr, m + 1, r);
 		// merge the two halfs
 		_msMerge(arr, l, m, r);
+		display(arr);
 	}
 }
 
@@ -126,28 +135,29 @@ void _msDivide(int arr[], int l, int r) {
 // it make the call of merge sort more convenient to the user
 // as it will just pass the array and its length
 void MergeSort(int arr[], int len) {
+	cout << "Merge Sort steps: " << endl;
 	// passing the first position as (l) and the last position as (r)
 	_msDivide(arr, 0, len - 1);
 }
 
 int main() {
-	int size, fn = 0, *arr;
+	int fn = 0, *arr;
 
 
 	do {
 		system("cls");
 		// get the array size and values from the user
 		cout << "Please enter the size of the array: ";
-		cin >> size;
-		arr = new int[size];
+		cin >> arr_size;
+		arr = new int[arr_size];
 		system("cls");
 		cout << "Please enter the array values:" << endl;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < arr_size; i++)
 			cin >> arr[i];
 
 		system("cls");
 		cout << "Unsorted array" << endl;
-		display(arr, size);
+		display(arr);
 
 		cout << "\nPlease select the sorting algorithm:\n"
 			<< "\t1. Bubble Sort\n"
@@ -159,16 +169,16 @@ int main() {
 		cin >> fn;
 		switch (fn) {
 			case 1:
-				BubbleSort(arr, size);
+				BubbleSort(arr, arr_size);
 				break;
 			case 2:
-				SelectionSort(arr, size);
+				SelectionSort(arr, arr_size);
 				break;
 			case 3:
-				InsertionSort(arr, size);
+				InsertionSort(arr, arr_size);
 				break;
 			case 4:
-				MergeSort(arr, size);
+				MergeSort(arr, arr_size);
 				break;
 			default:
 				fn = 0;
@@ -177,7 +187,7 @@ int main() {
 
 		if (fn) {
 			cout << endl << "Sorted array" << endl;
-			display(arr, size);
+			display(arr);
 			fn = 0;
 			cout << endl << endl << "Enter 1 to try another array: ";
 			cin >> fn;
