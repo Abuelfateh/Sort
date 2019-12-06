@@ -133,7 +133,7 @@ void _msDivide(int arr[], int l, int r) {
 
 // this method is the main method to use merge sort
 // it make the call of merge sort more convenient to the user
-// as it will just pass the array and its length
+// as the user will just pass the array and its length
 void MergeSort(int arr[], int len) {
 	cout << "Merge Sort steps: " << endl;
 	// passing the first position as (l) and the last position as (r)
